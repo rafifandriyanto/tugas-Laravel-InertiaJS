@@ -6,6 +6,14 @@
 /storage/*.key
 /storage/pail
 /vendor
+/node_modules
+/skills
+/.vscode
+/database/*.sqlite
+/storage/logs/*.log
+/storage/framework/views/*.php
+/_ide_helper.php
+/.phpstorm.meta.php
 .env
 .env.backup
 .env.production

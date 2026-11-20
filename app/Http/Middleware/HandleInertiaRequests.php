@@ -8,18 +8,14 @@ use Inertia\Middleware;
 class HandleInertiaRequests extends Middleware
 {
     /**
-     * The root template that's loaded on the first page visit.
-     *
-     * @see https://inertiajs.com/server-side-setup#root-template
+     * The root template that is loaded on the first page visit.
      *
      * @var string
      */
     protected $rootView = 'app';
 
     /**
-     * Determines the current asset version.
-     *
-     * @see https://inertiajs.com/asset-versioning
+     * Determine the current asset version.
      */
     public function version(Request $request): ?string
     {
@@ -29,23 +25,32 @@ class HandleInertiaRequests extends Middleware
     /**
      * Define the props that are shared by default.
      *
-     * @see https://inertiajs.com/shared-data
-     *
      * @return array<string, mixed>
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            // Synchronize authenticated user state
+        return [
+            ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-            // Synchronize flash session messages
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
-                'success' => fn () => $request->session()->get('success'),
-                'error'   => fn () => $request->session()->get('error'),
+                'status'  => fn () => $request->session()->get('status'),
             ],
-        ]);
+            'breeze' => [
+                'active'       => true,
+                'version'      => '2.4.2',
+                'name'         => 'Laravel Breeze (Official Starter Kit)',
+                'stack'        => 'Vue 3 + Inertia.js',
+                'controllers'  => 'App\Http\Controllers\Auth',
+                'form_request' => 'App\Http\Requests\Auth\LoginRequest',
+                'routes_file'  => 'routes/auth.php',
+            ],
+            'db' => [
+                'driver'   => config('database.default'),
+                'database' => config('database.connections.' . config('database.default') . '.database'),
+            ],
+        ];
     }
 }
