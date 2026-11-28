@@ -1,3 +1,6 @@
+/* masukin style dasar tailwind kayak reset css bawaan browser */
 @tailwind base;
+/* masukin class komponen tailwind biar bisa dipake di project */
 @tailwind components;
+/* masukin semua class utility tailwind kayak flex, padding, sama warna */
 @tailwind utilities;

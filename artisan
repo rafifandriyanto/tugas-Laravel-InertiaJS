@@ -1,18 +1,22 @@
 #!/usr/bin/env php
 <?php
 
+// manggil class utama Application punya Laravel
 use Illuminate\Foundation\Application;
+// manggil ArgvInput buat baca argumen perintah yang diketik di terminal
 use Symfony\Component\Console\Input\ArgvInput;
 
+// catet waktu awal pas artisan mulai jalan buat ngitung durasi eksekusi
 define('LARAVEL_START', microtime(true));
 
-// Register the Composer autoloader...
+// muat autoloader Composer biar semua class package bisa langsung dipake
 require __DIR__.'/vendor/autoload.php';
 
-// Bootstrap Laravel and handle the command...
-/** @var Application $app */
+// panggil file bootstrap/app.php buat nyiapin aplikasi Laravel (tipenya Application)
 $app = require_once __DIR__.'/bootstrap/app.php';
 
+// jalanin perintah terminal yang dikirim user terus simpen status hasil akhirnya
 $status = $app->handleCommand(new ArgvInput);
 
+// tutup script sambil balikin kode status (0 artinya sukses, selain 0 berarti error)
 exit($status);
